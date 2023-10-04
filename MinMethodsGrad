@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double[] x0 = new double [2];
+            x0[0] = 1;
+            x0[1] = 2;
+            double Error = Math.Pow(10, -6);
+        }
+        public static double Function(double x,double y)
+        {
+            return Math.Sqrt(x * x + y * y + 1) + x / 2 - y / 2;
+        }
+        public static double DivFunctionX(double x, double y)
+        {
+            return x/Math.Sqrt(x * x + y * y + 1)+1/2;
+        }
+        public static double DivFunctionY(double x, double y)
+        {
+            return y / Math.Sqrt(x * x + y * y + 1) - 1 / 2;
+        }
+        public static double ConstantGradMethod()
+        {
+
+            return 0;
+        }
+    }
+}
