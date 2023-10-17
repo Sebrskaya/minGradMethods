@@ -10,27 +10,63 @@ namespace ConsoleApplication4
     {
         static void Main(string[] args)
         {
-            double[] x0 = new double [2];
-            x0[0] = 1;
-            x0[1] = 2;
+            double[] p0 = new double[2];
+            p0[0] = 1;//x
+            p0[1] = 2;//y
+            int count = 0;
             double Error = Math.Pow(10, -6);
+
+            Console.Write("Grad Постоянный шаг: ");
+            PrintMas(ConstantGradMethod(p0[0], p0[1],Error));
         }
-        public static double Function(double x,double y)
+        public static double Function(double x, double y)
         {
             return Math.Sqrt(x * x + y * y + 1) + x / 2 - y / 2;
         }
         public static double DivFunctionX(double x, double y)
         {
-            return x/Math.Sqrt(x * x + y * y + 1)+1/2;
+            return x / Math.Sqrt(x * x + y * y + 1) + 1 / 2;
         }
         public static double DivFunctionY(double x, double y)
         {
             return y / Math.Sqrt(x * x + y * y + 1) - 1 / 2;
         }
-        public static double ConstantGradMethod()
+        public static double[] ConstantGradMethod(double x0, double y0, double e)
         {
+            int count = 0;
+            double x1 = 0;
+            double y1 = 0;
+            double step = 0.5;
+            double[] minPoint = new double[3];
 
-            return 0;
+            while (Math.Abs(Function(x1,y1) - Function(x0,y0)) > e & Math.Abs( y1 -  y0) > e & Math.Abs(x1 - x0) > e)
+            {
+                x1= x0;
+                x0 = x0 - step*DivFunctionX(x0,y0);
+
+                y1= y0;
+                y0 = y0 - step * DivFunctionX(x0, y0);
+                if (Function(x1, y1) >= Function(x0, y0))
+                {
+                    step = step / 2;
+                }
+                count++;
+            }
+            minPoint[0] = x0;
+            minPoint[1] = y0;
+            minPoint[2] = count;
+
+            return minPoint;
+        }
+        public static void PrintMas(double[] A)
+        {
+            foreach (int number in A)
+            {
+                Console.Write(number + " ");
+            }
+
+            // Чтобы добавить перевод строки после вывода массива:
+            Console.WriteLine();
         }
     }
 }
